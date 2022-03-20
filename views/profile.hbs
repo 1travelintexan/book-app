@@ -1,0 +1,15 @@
+<h1>{{currentUser.username}}'s Profile Page</h1>
+<form action="/logout" method="post">
+  <button>Logout</button>
+</form>
+<a href="/create-room">Create a Room!</a>
+<h4>Your Rooms:</h4>
+{{#each currentUser.rooms}}
+  <div>
+    <h6>Name: {{this.room_name}}</h6>
+    <h6>Size: {{this.room_size}}</h6>
+    <form action="/delete/{{this._id}}" method="post">
+      <button>Delete</button>
+    </form>
+  </div>
+{{/each}}
