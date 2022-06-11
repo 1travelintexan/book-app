@@ -2,7 +2,7 @@
   "name": "rooms-app",
   "version": "0.0.0",
   "engines": {
-    "node": "12.11.1"
+    "node": "18.2.0"
   },
   "private": true,
   "scripts": {
