@@ -14,7 +14,7 @@ const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 
 const store = new MongoDBStore({
-  uri: "mongodb://localhost:27017/rooms-app",
+  uri: "mongodb://127.0.0.1/rooms-app",
   collection: "sessions",
 });
 
@@ -41,7 +41,7 @@ require("./config")(app);
 const capitalized = require("./utils/capitalized");
 const projectName = "rooms-app";
 
-app.locals.appTitle = `${capitalized(projectName)} created with IronLauncher`;
+app.locals.appTitle = `${capitalized(projectName)}`;
 
 // 👇 Start handling routes here
 const index = require("./routes/index.routes");
