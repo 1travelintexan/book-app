@@ -1,6 +1,7 @@
 // ℹ️ Gets access to environment variables/settings
 // https://www.npmjs.com/package/dotenv
 require("dotenv/config");
+require("dotenv").config();
 
 // ℹ️ Connects to the database
 require("./db");
@@ -13,13 +14,13 @@ const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 
 const store = new MongoDBStore({
-  uri: "mongodb://localhost:27017/room-app",
-  collection: "mySessions",
+  uri: "mongodb://localhost:27017/rooms-app",
+  collection: "sessions",
 });
 
 app.use(
   require("express-session")({
-    secret: "This is a secret",
+    secret: process.env.secret_sess,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
     },
