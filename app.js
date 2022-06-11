@@ -3,7 +3,7 @@
 require("dotenv/config");
 
 // ℹ️ Connects to the database
-require("./db");
+//require("./db");
 
 // Handles http requests (express is node js framework)
 // https://www.npmjs.com/package/express
@@ -13,7 +13,7 @@ const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 
 const store = new MongoDBStore({
-  uri: "mongodb://127.0.0.1/rooms-app",
+  uri: process.env.MONGODB_URI || "mongodb://127.0.0.1/rooms-app",
   collection: "sessions",
 });
 
