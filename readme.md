@@ -12,3 +12,12 @@ make sure start script exist
 <--- Notes for EJS and HBS --->
 HBS command: npx ironlauncher@latest new-app
 EJS command: npx ironlauncher-ejs@latest new-app
+
+<---------------For restarting mongodb community ------------------>
+Try this if you tried to restart your service, but it still doesn't work
+
+stop your service
+brew services stop mongodb-community
+restart your macOS
+start your service again
+brew services start mongodb-community
