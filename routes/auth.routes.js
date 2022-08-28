@@ -2,7 +2,38 @@ const router = require("express").Router();
 const UserModel = require("../models/User.model");
 const RoomModel = require("../models/Room.model");
 const bcrypt = require("bcrypt");
-const isLoggedIn = require("../middlewares/auth.middleware");
+const {
+  isLoggedIn,
+  isLoggedInGoogle,
+} = require("../middlewares/auth.middleware");
+const passport = require("passport");
+
+//require the google auth folder to run everything inside of it
+// npm i passport passport-google-oauth20
+require("../googleAuth/auth");
+
+// <===============  google routes ======================>
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["email", "profile"] })
+);
+
+router.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    successRedirect: "/auth/protected",
+    failureRedirect: "/failure",
+  })
+);
+
+router.get("/auth/protected", isLoggedInGoogle, (req, res) => {
+  res.render("protected");
+});
+
+router.get("/failure", (req, res) => {
+  res.send("Something went wrong with your google login");
+});
+//<================= end of google routes ===============>
 
 router.post("/signup", async (req, res, next) => {
   const { username, password, email } = req.body;
@@ -71,4 +102,5 @@ router.post("/logout", (req, res, next) => {
   req.session.destroy();
   res.redirect("/login");
 });
+
 module.exports = router;

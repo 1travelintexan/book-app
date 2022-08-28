@@ -5,10 +5,12 @@ require("dotenv/config");
 // ℹ️ Connects to the database
 require("./db");
 
+const passport = require("passport");
 // Handles http requests (express is node js framework)
 // https://www.npmjs.com/package/express
 const express = require("express");
 const app = express();
+
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 
@@ -19,7 +21,7 @@ const store = new MongoDBStore({
 
 app.use(
   require("express-session")({
-    secret: process.env.secret_sess,
+    secret: process.env.SECRET_SESS,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
     },
@@ -28,6 +30,9 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Handles the handlebars
 // https://www.npmjs.com/package/hbs
